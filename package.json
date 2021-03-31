@@ -1,0 +1,27 @@
+{
+  "name": "swdv691-backend",
+  "version": "1.0.0",
+  "description": "capstone",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoraNers/swdv691-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoraNers/swdv691-backend/issues"
+  },
+  "homepage": "https://github.com/CoraNers/swdv691-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongod": "^2.0.0",
+    "mongoose": "^5.12.2"
+  }
+}
