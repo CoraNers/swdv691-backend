@@ -1,6 +1,5 @@
 // Set up
 var express = require('express');
-// var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -20,14 +19,7 @@ mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb
 const app = express()
   .use(cors())
   .use(bodyParser.json())
-//   .use(bearerToken())
   .use(methodOverride());
-
-// app.use(bodyParser.urlencoded({'extended': 'true'}));
-// app.use(bodyParser.json());
-// app.use(bodyParser.json({type: 'application/vnd.api+json'}));
-// app.use(methodOverride());
-// app.use(cors());
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -50,26 +42,25 @@ var UserData = mongoose.model('UserData', {
 // Authenticate user
 app.get('/login', function (req, res) {
 
-    console.log('inside server side login');
-    console.log('username!!!!! ' + req.query.username);
-    console.log('password!!!!! ' + req.query.password);
-
     UserData.findOne({ 
         username: req.query.username,
         password: req.query.password
     }, function (err, userDataDocument) {
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
-            res.send(err);
-            console.log('error');
+            // some kind of error happened.  
+            res.status(400).send('Something went wrong. Please try again.');
             console.log(err);
-        } 
-            console.log('new **************************');
-            console.log(userDataDocument);
-            res.json(userDataDocument); // return document with userData from MongoDB
+        } else {
+            if (userDataDocument) {
+                // user is found in the db by username/password. send it back
+                res.status(200).json(userDataDocument);
+            } else {
+                // query worked but credentials could not be verified in the db.  send back unauthorized.
+                res.status(401).send('User is not authorized. Please try again.');
+            }
+        }
     });
 });
 
 // Start app and listen on port 8080  
-// app.listen(process.env.PORT || 8080);
 console.log("Let's Multiply! server listening on port  - ", (process.env.PORT || 8080));
