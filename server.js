@@ -38,6 +38,17 @@ var UserData = mongoose.model('UserData', {
     isTeacher: Boolean // field not used for MVP
 });
 
+var GameData = mongoose.model('GameData', {
+    userId: String,
+    rowId: Number,
+    problemsAndAnswers: Array,
+    mode: String,
+    date: String,
+    questionsAttempted: Number,
+    questionsCorrect: Number,
+    lengthOfTime: String,
+});
+
 
 // Authenticate user
 app.get('/login', function (req, res) {
@@ -59,6 +70,33 @@ app.get('/login', function (req, res) {
                 res.status(401).send('User is not authorized. Please try again.');
             }
         }
+    });
+});
+
+// Save gameplay data
+app.post('/play/completed', function (req, res) {
+    console.log('Attemping to save gameplay data..............!');
+    // console.log(req.body);
+
+    GameData.create({
+        userId: req.body.userId,
+        problemsAndAnswers: req.body.problemsAndAnswers,
+        mode: req.body.mode,
+        date: "04/07/21 6:28 pm", // TODO proper date
+        questionsAttempted: req.body.questionsAttempted,
+        questionsCorrect: req.body.questionsCorrect,
+        lengthOfTime: undefined // TODO if evaluation mode this should not be undefined
+    }, function (err, gamedata) {
+        if (err) {
+            res.send(err);
+        }
+
+        // create and return the game data currently saved
+        GameData.find(function (err, gamedata) {
+            if (err)
+                res.send(err);
+            res.json(gamedata);
+        });
     });
 });
 
