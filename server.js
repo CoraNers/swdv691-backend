@@ -43,6 +43,7 @@ var GameData = mongoose.model('GameData', {
     rowId: Number,
     problemsAndAnswers: Array,
     mode: String,
+    category: String,
     date: String,
     questionsAttempted: Number,
     questionsCorrect: Number,
@@ -73,7 +74,7 @@ app.get('/login', function (req, res) {
     });
 });
 
-// Save gameplay data
+// Save gameplay data to database
 app.post('/play/completed', function (req, res) {
     console.log('Attemping to save gameplay data..............!');
     // console.log(req.body);
@@ -82,6 +83,7 @@ app.post('/play/completed', function (req, res) {
         userId: req.body.userId,
         problemsAndAnswers: req.body.problemsAndAnswers,
         mode: req.body.mode,
+        category: req.body.category,
         date: "04/07/21 6:28 pm", // TODO proper date
         questionsAttempted: req.body.questionsAttempted,
         questionsCorrect: req.body.questionsCorrect,
