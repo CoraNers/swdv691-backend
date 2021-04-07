@@ -89,16 +89,16 @@ app.post('/play/completed', function (req, res) {
         questionsCorrect: req.body.questionsCorrect,
         lengthOfTime: undefined // TODO if evaluation mode this should not be undefined
     }, function (err, gamedata) {
+        console.log('---------------------------------------- mongoose !!!!');
+        console.log(gamedata);
         if (err) {
-            res.send(err);
+            // some kind of error happened.  
+            res.status(400).send('Something went wrong. Please try again.');
+            console.log(err);
+        } else {
+            // once successfully persisted - return that one JSON document for UI display
+            res.status(201).json(gamedata);
         }
-
-        // create and return the game data currently saved
-        GameData.find(function (err, gamedata) {
-            if (err)
-                res.send(err);
-            res.json(gamedata);
-        });
     });
 });
 
