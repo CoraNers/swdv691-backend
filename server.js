@@ -84,10 +84,10 @@ app.post('/play/completed', function (req, res) {
         problemsAndAnswers: req.body.problemsAndAnswers,
         mode: req.body.mode,
         category: req.body.category,
-        date: "04/07/21 6:28 pm", // TODO proper date
+        date: req.body.date,
         questionsAttempted: req.body.questionsAttempted,
         questionsCorrect: req.body.questionsCorrect,
-        lengthOfTime: undefined // TODO if evaluation mode this should not be undefined
+        lengthOfTime: req.body.lengthOfTime
     }, function (err, gamedata) {
         console.log('---------------------------------------- mongoose !!!!');
         console.log(gamedata);
