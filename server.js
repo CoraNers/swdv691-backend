@@ -76,9 +76,6 @@ app.get('/login', function (req, res) {
 
 // Save gameplay data to database
 app.post('/play/completed', function (req, res) {
-    console.log('Attemping to save gameplay data..............!');
-    // console.log(req.body);
-
     GameData.create({
         userId: req.body.userId,
         problemsAndAnswers: req.body.problemsAndAnswers,
