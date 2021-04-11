@@ -60,6 +60,7 @@ app.get("/", (request, response) => {
 
 // Authenticate user
 app.get('/login', function (req, res) {
+    console.log('server side login');
 
     UserData.findOne({ 
         username: req.query.username,
