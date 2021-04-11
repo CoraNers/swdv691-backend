@@ -6,8 +6,9 @@ var methodOverride = require('method-override');
 var cors = require('cors');
 
 // Configuration
-mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority"
- || "mongodb://192.168.0.24:27017/capstone")
+mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority")
+// mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority"
+//  || "mongodb://192.168.0.24:27017/capstone")
  .then(() => {
     console.log('Connected to database');
     var port = process.env.PORT || 8080;
@@ -50,6 +51,10 @@ var GameData = mongoose.model('GameData', {
     lengthOfTime: String,
 });
 
+// root route
+app.get("/", (request, response) => {
+    response.json({ info: "WE ARE HERE!!!!" });
+  });
 
 // Authenticate user
 app.get('/login', function (req, res) {
