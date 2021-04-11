@@ -56,7 +56,7 @@ var GameData = mongoose.model('GameData', {
 // root route
 app.get("/", (request, response) => {
     response.json({ info: "WE ARE HERE!!!!" });
-  });
+});
 
 // Authenticate user
 app.get('/login', function (req, res) {
