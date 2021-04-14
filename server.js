@@ -9,7 +9,7 @@ var app = express();
 // Configuration
 mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority")
 // mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority"
-//  || "mongodb://192.168.0.24:27017/capstone")
+//  || "mongodb://192.168.0.21:27017/capstone")
  .then(() => {
     console.log('Connected to database');
     var port = process.env.PORT || 8080;
@@ -103,6 +103,27 @@ app.post('/play/completed', function (req, res) {
         } else {
             // once successfully persisted - return that one JSON document for UI display
             res.status(201).json(gamedata);
+        }
+    });
+});
+
+// Get user history (all GameData models for a particular userId)
+app.get('/history/:userId', function (req, res) {
+    console.log('server side fetch history with userId: ', req.path.userId);
+
+    GameData.findById(req.path.userId, function (err, gamedataDocuments) {
+        if (err) {
+            // some kind of error happened.  
+            res.status(400).send('Something went wrong. Please try again.');
+            console.log(err);
+        } else {
+            if (gamedataDocuments) {
+                // gamedata has been found for the userId. send it back.
+                res.status(200).json(gamedataDocuments);
+            } else {
+                // query worked but something went wrong?
+                res.status(400).send('Something went wrong. Please try again.');
+            }
         }
     });
 });
