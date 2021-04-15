@@ -120,6 +120,8 @@ app.get('/history/:userId', function (req, res) {
             if (gamedataDocuments) {
                 // gamedata has been found for the userId. send it back.
                 res.status(200).json(gamedataDocuments);
+                console.log('------ IT WORKED');
+                console.log(gamedataDocuments);
             } else {
                 // query worked but something went wrong?
                 res.status(400).send('Something went wrong. Please try again.');
