@@ -109,9 +109,9 @@ app.post('/play/completed', function (req, res) {
 
 // Get user history (all GameData models for a particular userId)
 app.get('/history/:userId', function (req, res) {
-    console.log('server side fetch history with userId: ', req.path.userId);
+    console.log('server side fetch history with userId: ', req.params.userId);
 
-    GameData.findById(req.path.userId, function (err, gamedataDocuments) {
+    GameData.findById(req.params.userId, function (err, gamedataDocuments) {
         if (err) {
             // some kind of error happened.  
             res.status(400).send('Something went wrong. Please try again.');
