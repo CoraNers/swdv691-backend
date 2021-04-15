@@ -55,13 +55,11 @@ var GameData = mongoose.model('GameData', {
 
 // root route
 app.get("/", (request, response) => {
-    response.json({ info: "WE ARE HERE!!!!" });
+    response.json({ info: 'Let\'s Multiply backend server successfully loaded.' });
 });
 
 // Authenticate user
 app.get('/login', function (req, res) {
-    console.log('server side login');
-
     UserData.findOne({ 
         username: req.query.username,
         password: req.query.password
@@ -94,8 +92,6 @@ app.post('/play/completed', function (req, res) {
         questionsCorrect: req.body.questionsCorrect,
         lengthOfTime: req.body.lengthOfTime
     }, function (err, gamedata) {
-        console.log('---------------------------------------- mongoose !!!!');
-        console.log(gamedata);
         if (err) {
             // some kind of error happened.  
             res.status(400).send('Something went wrong. Please try again.');
@@ -109,8 +105,6 @@ app.post('/play/completed', function (req, res) {
 
 // Get user history (all GameData models for a particular userId)
 app.get('/history/:userId', function (req, res) {
-    console.log('server side fetch history with userId: ', req.params.userId);
-
     GameData.find({userId: req.params.userId}, function (err, gamedataDocuments) {
         if (err) {
             // some kind of error happened.  
@@ -120,8 +114,6 @@ app.get('/history/:userId', function (req, res) {
             if (gamedataDocuments) {
                 // gamedata has been found for the userId. send it back.
                 res.status(200).json(gamedataDocuments);
-                console.log('------ IT WORKED');
-                console.log(gamedataDocuments);
             } else {
                 // query worked but something went wrong?
                 res.status(400).send('Something went wrong. Please try again.');
