@@ -7,9 +7,8 @@ var cors = require('cors');
 var app = express();
 
 // Configuration
-mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority")
-// mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority"
-//  || "mongodb://192.168.0.21:27017/capstone")
+mongoose.connect('mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb.net/capstone?retryWrites=true&w=majority')
+
  .then(() => {
     console.log('Connected to database');
     var port = process.env.PORT || 8080;
@@ -25,9 +24,9 @@ mongoose.connect("mongodb+srv://dbUser:dbPassword@capstone-cluster.trqpg.mongodb
   app.use(cors());
   
   app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
+      res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'DELETE, POST, PUT');
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
       next();
   });
 
@@ -54,7 +53,7 @@ var GameData = mongoose.model('GameData', {
 });
 
 // root route
-app.get("/", (request, response) => {
+app.get('/', (request, response) => {
     response.json({ info: 'Let\'s Multiply backend server successfully loaded.' });
 });
 
@@ -123,4 +122,4 @@ app.get('/history/:userId', function (req, res) {
 });
 
 // Start app and listen on port 8080  
-console.log("Let's Multiply! server listening on port  - ", (process.env.PORT || 8080));
+console.log('Let\'s Multiply! server listening on port  - ', (process.env.PORT || 8080));
